@@ -5,10 +5,18 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "yarn build && firebase deploy"
   },
   "dependencies": {
+    "@tailwindcss/postcss7-compat": "^2.0.2",
+    "autoprefixer": "^9",
+    "bad-words": "^3.0.4",
     "core-js": "^3.6.5",
+    "firebase": "^8.2.1",
+    "firebase-tools": "^9.1.0",
+    "postcss": "^7",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "vue": "^3.0.0"
   },
   "devDependencies": {

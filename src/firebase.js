@@ -26,7 +26,6 @@ export function useAuth() {
   const signIn = async () => {
     const googleProvider = new firebase.auth.GoogleAuthProvider()
     await auth.signInWithPopup(googleProvider)
-    console.log(auth.currentUser)
   }
   const signOut = () => auth.signOut()
 
@@ -38,10 +37,6 @@ const messagesCollection = firestore.collection('messages')
 const messagesQuery = messagesCollection.orderBy('createdAt', 'desc').limit(100)
 const filter = new Filter()
 
-const timestamp = () => {
-  return firebase.firestore.FieldValue.serverTimestamp()
-}
-
 export function useChat() {
   const messages = ref([])
   const unsubscribe = messagesQuery.onSnapshot(snapshot => {
@@ -51,16 +46,16 @@ export function useChat() {
   })
   onUnmounted(unsubscribe)
 
-  const { user } = useAuth()
+  const { user, isLogin } = useAuth()
   const sendMessage = text => {
-    if (!user.value) return
+    if (!isLogin.value) return
     const { photoURL, uid, displayName } = user.value
     messagesCollection.add({
       userName: displayName,
       userId: uid,
       userPhotoURL: photoURL,
       text: filter.clean(text),
-      createdAt: timestamp()
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
     })
   }
 

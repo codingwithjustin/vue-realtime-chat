@@ -6,7 +6,7 @@
         :key="id"
         :name="userName"
         :photo-url="userPhotoURL"
-        :right="userId === user?.uid"
+        :sender="userId === user?.uid"
       >
         {{ text }}
       </Message>
